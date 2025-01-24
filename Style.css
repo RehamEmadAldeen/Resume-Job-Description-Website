@@ -1,0 +1,40 @@
+.main-title {
+    color: rgb(214, 211, 211);
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    }
+.sub-header {
+    color: #387ec0;
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    }
+.stButton button {
+    background-color: #737973;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    }
+.stButton button:hover {
+    background-color: rgba(230, 227, 227, 0.753);
+    color: black;
+    border: 2px solid #323632;
+    }
+.stTextArea textarea {
+    font-size: 16px;
+    }
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }
+
+
