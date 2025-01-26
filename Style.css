@@ -1,5 +1,5 @@
 .main-title {
-    color: rgb(214, 211, 211);
+    color: rgb(91, 109, 114) !important;
     font-size: 1.5em;
     text-align: center;
     margin-bottom: 20px;
@@ -11,13 +11,13 @@
     margin-bottom: 20px;
     }
 .stButton button {
-    background-color: #737973;
-    color: white;
-    border: none;
+    background-color: #a1a1a1;
+    color: rgb(91, 109, 114)!important;
+    border: black !important;
     padding: 10px 20px;
     text-align: center;
     display: inline-block;
-    font-size: 16px;
+    font-size: 28px;
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -25,7 +25,7 @@
 .stButton button:hover {
     background-color: rgba(230, 227, 227, 0.753);
     color: black;
-    border: 2px solid #323632;
+    border: 2px solid #6e726e;
     }
 .stTextArea textarea {
     font-size: 16px;
@@ -36,5 +36,3 @@
     align-items: center;
     flex-direction: column;
     }
-
-

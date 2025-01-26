@@ -15,10 +15,10 @@ def get_gemini_response(input):
 
 
 def input_pdf_text(uploaded_file):
-  reader=pdf.PdfReader(uploaded_file)
+  Read_PDF=pdf.PdfReader(uploaded_file)
   text=""
-  for page in range(len(reader.pages)):
-    page=reader.pages[page]
+  for page in range(len(Read_PDF.pages)):
+    page=Read_PDF.pages[page]
     text+=str(page.extract_text())
   return text
 
@@ -41,17 +41,17 @@ st.markdown('<div class="centered">', unsafe_allow_html=True)
 Job_Desc = st.text_area("Enter your Job Description text here", key="input")
 uploaded_file = st.file_uploader("Upload your Resume", type="pdf", key="file", help="Please upload the pdf")
 st.markdown('</div>', unsafe_allow_html=True)
-submit = st.button("Submit")
-if submit:
-    # Check if both uploaded_file and Job_Desc are empty or None
-    if not uploaded_file or not Job_Desc:
-        st.warning("Warning: Please upload a PDF file and put the job description")
-    elif not uploaded_file:
-        st.warning("Please upload a PDF file")
-    elif not Job_Desc:
-        st.warning("Please put the job description")
-    else:
-        st.write("Successfully.")
+# submit = st.button("Submit")
+# if submit:
+#     # Check if both uploaded_file and Job_Desc are empty or None
+#     if not uploaded_file or not Job_Desc:
+#         st.warning("Warning: Please upload a PDF file and put the job description")
+#     elif not uploaded_file:
+#         st.warning("Please upload a PDF file")
+#     elif not Job_Desc:
+#         st.warning("Please put the job description")
+#     else:
+#         st.write("Successfully.")
 
 
 
@@ -63,6 +63,7 @@ sub2 = st.button("Percentage Match ")
 input_prompt1 = """
 You are an advanced AI Resume Optimization Specialist designed to perform a strategic keyword gap analysis between a candidate's resume and a specific job description and you will use the information in the uploaded resume. 
 Your objective is to provide a nuanced, actionable assessment that bridges the communication gap between a candidate's professional profile and employer expectations.
+Candidate Name: 
 Resume: {text}
 Job Description: {jd}
 Primary Responsibilities:
@@ -103,8 +104,6 @@ And finally, give your final thoughts.
 """
 
 
-
-
 if sub1:
     if uploaded_file is not None and Job_Desc:
         text = input_pdf_text(uploaded_file)
@@ -121,4 +120,5 @@ elif sub2:
         response = get_gemini_response(input)
         st.markdown('<h2 class="sub-header"> Percentage Match</h2>', unsafe_allow_html=True)
         st.write(response)
+
 
