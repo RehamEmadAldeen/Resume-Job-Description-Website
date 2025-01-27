@@ -25,34 +25,15 @@ def input_pdf_text(uploaded_file):
 
 # Style
 st.set_page_config(page_title="Resume ATS", layout="wide")
-def load_css(file_path):
-    try:
-        with open(css_path) as f:
-            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-    except FileNotFoundError:
-        st.warning("CSS file not found. Default style applied.")
 
-css_path= pathlib.Path("Style.css")
-load_css(css_path)
-
+with open("Style.css") as f:
+  st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 st.markdown('<h1 class="main-title"> Resume Application Tracking System</h1>', unsafe_allow_html=True)
 st.markdown('<div class="centered">', unsafe_allow_html=True)
 Job_Desc = st.text_area("Enter your Job Description text here", key="input")
 uploaded_file = st.file_uploader("Upload your Resume", type="pdf", key="file", help="Please upload the pdf")
 st.markdown('</div>', unsafe_allow_html=True)
-# submit = st.button("Submit")
-# if submit:
-#     # Check if both uploaded_file and Job_Desc are empty or None
-#     if not uploaded_file or not Job_Desc:
-#         st.warning("Warning: Please upload a PDF file and put the job description")
-#     elif not uploaded_file:
-#         st.warning("Please upload a PDF file")
-#     elif not Job_Desc:
-#         st.warning("Please put the job description")
-#     else:
-#         st.write("Successfully.")
-
 
 
 sub1 = st.button(" What Keywords are Missing in my Resume")
@@ -120,5 +101,3 @@ elif sub2:
         response = get_gemini_response(input)
         st.markdown('<h2 class="sub-header"> Percentage Match</h2>', unsafe_allow_html=True)
         st.write(response)
-
-
