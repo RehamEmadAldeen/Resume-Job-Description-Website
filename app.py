@@ -1,29 +1,22 @@
+# Import Libraries 
 import streamlit as st
 import google.generativeai as genai
 import PyPDF2 as pdf
 import os
-import pathlib
 from dotenv import load_dotenv
 load_dotenv()
 
+# API
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
+# Gemini Model
 def get_gemini_response(input):
   model = genai.GenerativeModel('gemini-1.5-flash')
   response=model.generate_content(input)
   return response.text
 
 
-def input_pdf_text(uploaded_file):
-  Read_PDF=pdf.PdfReader(uploaded_file)
-  text=""
-  for page in range(len(Read_PDF.pages)):
-    page=Read_PDF.pages[page]
-    text+=str(page.extract_text())
-  return text
-
-
-# Style
+# Streamlit using Costum Css styles
 st.set_page_config(page_title="Resume ATS", layout="wide")
 
 with open("Style.css") as f:
@@ -35,12 +28,19 @@ Job_Desc = st.text_area("Enter your Job Description text here", key="input")
 uploaded_file = st.file_uploader("Upload your Resume", type="pdf", key="file", help="Please upload the pdf")
 st.markdown('</div>', unsafe_allow_html=True)
 
-
-sub1 = st.button(" What Keywords are Missing in my Resume")
+sub1 = st.button("Keywords Missing in my Resume")
 sub2 = st.button("Percentage Match ")
 
-# Prompits
+# PDF to Text Model 
+def input_pdf_text(uploaded_file):
+  Read_PDF=pdf.PdfReader(uploaded_file)
+  text=""
+  for page in range(len(Read_PDF.pages)):
+    page=Read_PDF.pages[page]
+    text+=str(page.extract_text())
+  return text
 
+# Prompits
 input_prompt1 = """
 You are an advanced AI Resume Optimization Specialist designed to perform a strategic keyword gap analysis between a candidate's resume and a specific job description and you will use the information in the uploaded resume. 
 Your objective is to provide a nuanced, actionable assessment that bridges the communication gap between a candidate's professional profile and employer expectations.
