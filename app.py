@@ -15,7 +15,6 @@ def get_gemini_response(input):
   response=model.generate_content(input)
   return response.text
 
-
 # Streamlit using Costum Css styles
 st.set_page_config(page_title="Resume ATS", layout="wide")
 
@@ -25,7 +24,7 @@ with open("Style.css") as f:
 st.markdown('<h1 class="main-title"> Resume Application Tracking System</h1>', unsafe_allow_html=True)
 st.markdown('<div class="centered">', unsafe_allow_html=True)
 Job_Desc = st.text_area("Enter your Job Description text here", key="input")
-uploaded_file = st.file_uploader("Upload your Resume", type="pdf", key="file", help="Please upload the pdf")
+uploaded_file = st.file_uploader("Upload your Resume", type="pdf", key="file")
 st.markdown('</div>', unsafe_allow_html=True)
 
 sub1 = st.button("Keywords Missing in my Resume")
@@ -40,7 +39,7 @@ def input_pdf_text(uploaded_file):
     text+=str(page.extract_text())
   return text
 
-# Prompits
+# Prompts
 input_prompt1 = """
 You are an advanced AI Resume Optimization Specialist designed to perform a strategic keyword gap analysis between a candidate's resume and a specific job description and you will use the information in the uploaded resume. 
 Your objective is to provide a nuanced, actionable assessment that bridges the communication gap between a candidate's professional profile and employer expectations.
@@ -88,16 +87,19 @@ And finally, give your final thoughts.
 if sub1:
     if uploaded_file is not None and Job_Desc:
         text = input_pdf_text(uploaded_file)
-        input=input_prompt1.format(text=text,jd=Job_Desc)
+        input = input_prompt1.format(text=text, jd=Job_Desc)
         response = get_gemini_response(input)
         st.markdown('<h2 class="sub-header"> Missing Keywords</h2>', unsafe_allow_html=True)
         st.write(response)
-
+    else:
+        st.warning("Please check your resume or job description")
 
 elif sub2:
     if uploaded_file is not None and Job_Desc:
         text = input_pdf_text(uploaded_file)
-        input=input_prompt2.format(text=text,jd=Job_Desc)
+        input = input_prompt2.format(text=text, jd=Job_Desc)
         response = get_gemini_response(input)
         st.markdown('<h2 class="sub-header"> Percentage Match</h2>', unsafe_allow_html=True)
         st.write(response)
+    else:
+        st.warning("Please check your resume or job description")
